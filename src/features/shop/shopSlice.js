@@ -36,4 +36,8 @@ const shopSlice = createSlice({
   },
 });
 
+export const {
+  selectIds: selectProductIds,
+  selectById: selectProductById,
+} = shopAdapter.getSelectors((state) => state.shop);
 export default shopSlice.reducer;
