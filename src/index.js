@@ -1,18 +1,23 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './app/store';
+import store from './app/store';
 import App from './App';
 import './index.css';
+import { worker } from './api/server';
 
-const container = document.getElementById('root');
-const root = createRoot(container);
+async function start() {
+  await worker.start({ onUnhandledRequest: 'bypass' });
+  const container = document.getElementById('root');
+  const root = createRoot(container);
 
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
-);
+  root.render(
+    <React.StrictMode>
+      <Provider store={store}>
+        <App />
+      </Provider>
+    </React.StrictMode>,
+  );
+}
 
+start();
