@@ -1,10 +1,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 import store from './app/store';
 import App from './App';
-import './index.css';
 import { worker } from './api/server';
+import './index.css';
 
 async function start() {
   await worker.start({ onUnhandledRequest: 'bypass' });
@@ -12,11 +13,11 @@ async function start() {
   const root = createRoot(container);
 
   root.render(
-    <React.StrictMode>
-      <Provider store={store}>
+    <Provider store={store}>
+      <Router>
         <App />
-      </Provider>
-    </React.StrictMode>,
+      </Router>
+    </Provider>,
   );
 }
 
