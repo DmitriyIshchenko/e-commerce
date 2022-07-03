@@ -1,10 +1,16 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk, createEntityAdapter, createSlice,
+} from '@reduxjs/toolkit';
 import client from '../../api/client';
 
 const shopAdapter = createEntityAdapter();
 const initialState = shopAdapter.getInitialState({
   status: 'idle',
   error: null,
+  sortBy: {
+    field: 'rating',
+    order: 'desc',
+  },
 });
 
 export const fetchProducts = createAsyncThunk(
@@ -19,6 +25,9 @@ const shopSlice = createSlice({
   name: 'shop',
   initialState,
   reducers: {
+    sortByUpdated(state, action) {
+      state.sortBy = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -37,7 +46,17 @@ const shopSlice = createSlice({
 });
 
 export const {
-  selectIds: selectProductIds,
   selectById: selectProductById,
 } = shopAdapter.getSelectors((state) => state.shop);
 export default shopSlice.reducer;
+
+export const { sortByUpdated } = shopSlice.actions;
+
+export const selectFilteredProductIds = (state) => {
+  const { ids, entities } = state.shop;
+
+  // sort
+  const { field, order } = state.shop.sortBy;
+  return [...ids].sort((a, b) => (order === 'asc' ? entities[a][field] - entities[b][field]
+    : entities[b][field] - entities[a][field]));
+};

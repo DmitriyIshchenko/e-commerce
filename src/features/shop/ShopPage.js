@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProducts, selectProductIds } from './shopSlice';
+import { Link } from 'react-router-dom';
+import { fetchProducts, selectFilteredProductIds } from './shopSlice';
 import Spinner from '../../common/Spinner';
 import ProductCard from './ProductCard';
 
@@ -9,7 +10,7 @@ function ShopPage() {
 
   const status = useSelector((state) => state.shop.status);
   const error = useSelector((state) => state.shop.error);
-  const productIds = useSelector(selectProductIds);
+  const productIds = useSelector(selectFilteredProductIds);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -36,9 +37,14 @@ function ShopPage() {
   }
 
   return (
-    <main>
-      {content}
-    </main>
+    <>
+      <header>
+        <Link to="/sort">sort</Link>
+      </header>
+      <main>
+        {content}
+      </main>
+    </>
   );
 }
 
