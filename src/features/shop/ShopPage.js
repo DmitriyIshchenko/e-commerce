@@ -40,6 +40,7 @@ function ShopPage() {
     <>
       <header>
         <Link to="/sort">sort</Link>
+        <Link to="/filter">filter</Link>
       </header>
       <main>
         {content}

@@ -11,6 +11,12 @@ const initialState = shopAdapter.getInitialState({
     field: 'rating',
     order: 'desc',
   },
+  minPrice: 0,
+  maxPrice: 0,
+  filters: {
+    minPrice: 0,
+    maxPrice: 0,
+  },
 });
 
 export const fetchProducts = createAsyncThunk(
@@ -28,6 +34,12 @@ const shopSlice = createSlice({
     sortByUpdated(state, action) {
       state.sortBy = action.payload;
     },
+    filtersUpdated(state, action) {
+      state.filters = {
+        ...state.filters,
+        ...action.payload,
+      };
+    },
   },
   extraReducers(builder) {
     builder
@@ -36,6 +48,17 @@ const shopSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = 'succeeded';
+
+        const minPrice = Math.min(...action.payload.map((item) => item.price));
+        const maxPrice = Math.max(...action.payload.map((item) => item.price));
+        state.minPrice = minPrice;
+        state.maxPrice = maxPrice;
+        state.filters = {
+          ...state.filters,
+          minPrice,
+          maxPrice,
+        };
+
         shopAdapter.upsertMany(state, action.payload);
       })
       .addCase(fetchProducts.rejected, (state, action) => {
@@ -50,13 +73,19 @@ export const {
 } = shopAdapter.getSelectors((state) => state.shop);
 export default shopSlice.reducer;
 
-export const { sortByUpdated } = shopSlice.actions;
+export const { sortByUpdated, filtersUpdated } = shopSlice.actions;
 
 export const selectFilteredProductIds = (state) => {
-  const { ids, entities } = state.shop;
+  const { ids, entities, filters } = state.shop;
+  let tempIds = ids.slice();
+
+  const { minPrice, maxPrice } = filters;
+
+  tempIds = tempIds
+    .filter((id) => entities[id].price >= minPrice && entities[id].price <= maxPrice);
 
   // sort
   const { field, order } = state.shop.sortBy;
-  return [...ids].sort((a, b) => (order === 'asc' ? entities[a][field] - entities[b][field]
+  return tempIds.sort((a, b) => (order === 'asc' ? entities[a][field] - entities[b][field]
     : entities[b][field] - entities[a][field]));
 };
