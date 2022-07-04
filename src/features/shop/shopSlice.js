@@ -16,6 +16,7 @@ const initialState = shopAdapter.getInitialState({
   filters: {
     minPrice: 0,
     maxPrice: 0,
+    brands: [],
   },
 });
 
@@ -47,19 +48,24 @@ const shopSlice = createSlice({
         state.status = 'loading';
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        const products = action.payload;
+        const minPrice = Math.min(...products.map((item) => item.price));
+        const maxPrice = Math.max(...products.map((item) => item.price));
 
-        const minPrice = Math.min(...action.payload.map((item) => item.price));
-        const maxPrice = Math.max(...action.payload.map((item) => item.price));
+        const brands = ['all', ...new Set(products.map((product) => product.brand))]
+          .map((brand) => ({ active: true, name: brand }));
+
+        state.status = 'succeeded';
         state.minPrice = minPrice;
         state.maxPrice = maxPrice;
         state.filters = {
           ...state.filters,
           minPrice,
           maxPrice,
+          brands,
         };
 
-        shopAdapter.upsertMany(state, action.payload);
+        shopAdapter.upsertMany(state, products);
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = 'failed';
@@ -71,18 +77,21 @@ const shopSlice = createSlice({
 export const {
   selectById: selectProductById,
 } = shopAdapter.getSelectors((state) => state.shop);
+
 export default shopSlice.reducer;
 
 export const { sortByUpdated, filtersUpdated } = shopSlice.actions;
 
 export const selectFilteredProductIds = (state) => {
   const { ids, entities, filters } = state.shop;
-  let tempIds = ids.slice();
+  let tempIds = [...ids];
 
-  const { minPrice, maxPrice } = filters;
+  const { minPrice, maxPrice, brands } = filters;
+  const activeBrands = brands.filter((brand) => brand.active).map((brand) => brand.name);
 
   tempIds = tempIds
-    .filter((id) => entities[id].price >= minPrice && entities[id].price <= maxPrice);
+    .filter((id) => entities[id].price >= minPrice && entities[id].price <= maxPrice)
+    .filter((id) => activeBrands.includes(entities[id].brand));
 
   // sort
   const { field, order } = state.shop.sortBy;
