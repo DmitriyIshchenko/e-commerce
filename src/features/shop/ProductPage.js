@@ -1,10 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { selectProductById } from './shopSlice';
 import StarRating from '../../common/StarRating';
+import { productAddedToCart } from '../cart/cartSlice';
 
 function ProductPage() {
+  const dispatch = useDispatch();
   const { productId } = useParams();
   const product = useSelector((state) => selectProductById(state, productId));
   const {
@@ -29,7 +31,7 @@ function ProductPage() {
         <p>{description}</p>
       </section>
 
-      <button type="button">add to cart</button>
+      <button type="button" onClick={() => dispatch(productAddedToCart(productId, price))}>add to cart</button>
     </main>
   );
 }
