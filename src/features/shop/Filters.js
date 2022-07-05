@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { filtersUpdated } from './shopSlice';
+import Header from '../../common/Header';
 
 function PriceFilter(props) {
   const {
@@ -81,24 +82,27 @@ export default function Filters() {
   };
 
   return (
-    <form>
-      <PriceFilter
-        newMinPrice={newMinPrice}
-        setNewMinPrice={setNewMinPrice}
-        newMaxPrice={newMaxPrice}
-        setNewMaxPrice={setNewMaxPrice}
-      />
-      <BrandsFilter
-        brands={brands}
-        setBrands={setBrands}
-      />
-      <button
-        type="button"
-        onClick={onApplyClicked}
-      >
-        Apply
-      </button>
-    </form>
+    <>
+      <Header title="filters" />
+      <form>
+        <PriceFilter
+          newMinPrice={newMinPrice}
+          setNewMinPrice={setNewMinPrice}
+          newMaxPrice={newMaxPrice}
+          setNewMaxPrice={setNewMaxPrice}
+        />
+        <BrandsFilter
+          brands={brands}
+          setBrands={setBrands}
+        />
+        <button
+          type="button"
+          onClick={onApplyClicked}
+        >
+          Apply
+        </button>
+      </form>
+    </>
   );
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { sortByUpdated } from './shopSlice';
+import Header from '../../common/Header';
 
 export default function Sorting() {
   const dispatch = useDispatch();
@@ -46,8 +47,11 @@ export default function Sorting() {
   });
 
   return (
-    <div>
-      {renderedRadios}
-    </div>
+    <>
+      <Header title="sort by" />
+      <div>
+        {renderedRadios}
+      </div>
+    </>
   );
 }

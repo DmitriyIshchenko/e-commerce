@@ -11,6 +11,7 @@ import {
   selectSubtotalCost,
 } from './cartSlice';
 import { selectProductById } from '../shop/shopSlice';
+import Header from '../../common/Header';
 
 function CartItem({ productId }) {
   const dispatch = useDispatch();
@@ -85,9 +86,12 @@ export default function CartPage() {
     );
   }
   return (
-    <main>
-      {content}
-    </main>
+    <>
+      <Header title="your cart" />
+      <main>
+        {content}
+      </main>
+    </>
   );
 }
 

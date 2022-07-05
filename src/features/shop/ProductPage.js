@@ -4,11 +4,18 @@ import { useParams } from 'react-router-dom';
 import { selectProductById } from './shopSlice';
 import StarRating from '../../common/StarRating';
 import { productAddedToCart } from '../cart/cartSlice';
+import DefaultPage from '../../common/DefaultPage';
+import Header from '../../common/Header';
 
 function ProductPage() {
   const dispatch = useDispatch();
   const { productId } = useParams();
   const product = useSelector((state) => selectProductById(state, productId));
+
+  if (!product) {
+    return <DefaultPage />;
+  }
+
   const {
     name,
     description,
@@ -18,21 +25,24 @@ function ProductPage() {
   } = product;
 
   return (
-    <main>
-      <section>
-        <img src={images[0]} alt="" />
-        <h2>{name}</h2>
-        <StarRating rating={rating} />
-        <span>{price}</span>
-      </section>
+    <>
+      <Header title={name} />
+      <main>
+        <section>
+          <img src={images[0]} alt="" />
+          <h2>{name}</h2>
+          <StarRating rating={rating} />
+          <span>{price}</span>
+        </section>
 
-      <section>
-        <h3>specification</h3>
-        <p>{description}</p>
-      </section>
+        <section>
+          <h3>specification</h3>
+          <p>{description}</p>
+        </section>
 
-      <button type="button" onClick={() => dispatch(productAddedToCart(productId, price))}>add to cart</button>
-    </main>
+        <button type="button" onClick={() => dispatch(productAddedToCart(productId, price))}>add to cart</button>
+      </main>
+    </>
   );
 }
 
