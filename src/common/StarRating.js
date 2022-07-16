@@ -10,14 +10,10 @@ export default function StarRating({ rating, height = 16, width = 16 }) {
         fill={rating >= i ? '#FFC833' : '#EAF0FF'}
         height={height}
         width={width}
-      />,
+      />
     );
   }
-  return (
-    <div>
-      {stars}
-    </div>
-  );
+  return <div>{stars}</div>;
 }
 StarRating.propTypes = {
   rating: PropTypes.number.isRequired,

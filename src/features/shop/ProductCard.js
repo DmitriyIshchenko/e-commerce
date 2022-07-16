@@ -7,18 +7,13 @@ import StarRating from '../../common/StarRating';
 
 function ProductCard({ productId }) {
   const product = useSelector((state) => selectProductById(state, productId));
-  const {
-    name,
-    price,
-    rating,
-    images,
-  } = product;
+  const { name, price, rating, images } = product;
 
   return (
     <li>
       <Link to={`/product/${productId}`}>
         <picture>
-          <img src={images[0]} alt="" />
+          <img src={images[0]} alt='' />
         </picture>
 
         <div>

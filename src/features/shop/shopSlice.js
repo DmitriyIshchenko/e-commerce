@@ -1,5 +1,7 @@
 import {
-  createAsyncThunk, createEntityAdapter, createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+  createSlice,
 } from '@reduxjs/toolkit';
 import client from '../../api/client';
 
@@ -25,7 +27,7 @@ export const fetchProducts = createAsyncThunk(
   async () => {
     const response = await client.get('/fakeApi/products');
     return response.data;
-  },
+  }
 );
 
 const shopSlice = createSlice({
@@ -52,8 +54,10 @@ const shopSlice = createSlice({
         const minPrice = Math.min(...products.map((item) => item.price));
         const maxPrice = Math.max(...products.map((item) => item.price));
 
-        const brands = ['all', ...new Set(products.map((product) => product.brand))]
-          .map((brand) => ({ active: true, name: brand }));
+        const brands = [
+          'all',
+          ...new Set(products.map((product) => product.brand)),
+        ].map((brand) => ({ active: true, name: brand }));
 
         state.status = 'succeeded';
         state.minPrice = minPrice;
@@ -74,9 +78,9 @@ const shopSlice = createSlice({
   },
 });
 
-export const {
-  selectById: selectProductById,
-} = shopAdapter.getSelectors((state) => state.shop);
+export const { selectById: selectProductById } = shopAdapter.getSelectors(
+  (state) => state.shop
+);
 
 export default shopSlice.reducer;
 
@@ -87,14 +91,21 @@ export const selectFilteredProductIds = (state) => {
   let tempIds = [...ids];
 
   const { minPrice, maxPrice, brands } = filters;
-  const activeBrands = brands.filter((brand) => brand.active).map((brand) => brand.name);
+  const activeBrands = brands
+    .filter((brand) => brand.active)
+    .map((brand) => brand.name);
 
   tempIds = tempIds
-    .filter((id) => entities[id].price >= minPrice && entities[id].price <= maxPrice)
+    .filter(
+      (id) => entities[id].price >= minPrice && entities[id].price <= maxPrice
+    )
     .filter((id) => activeBrands.includes(entities[id].brand));
 
   // sort
   const { field, order } = state.shop.sortBy;
-  return tempIds.sort((a, b) => (order === 'asc' ? entities[a][field] - entities[b][field]
-    : entities[b][field] - entities[a][field]));
+  return tempIds.sort((a, b) =>
+    order === 'asc'
+      ? entities[a][field] - entities[b][field]
+      : entities[b][field] - entities[a][field]
+  );
 };

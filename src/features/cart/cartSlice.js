@@ -1,4 +1,8 @@
-import { createSelector, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import {
+  createSelector,
+  createEntityAdapter,
+  createSlice,
+} from '@reduxjs/toolkit';
 
 const cartAdapter = createEntityAdapter();
 const initialState = cartAdapter.getInitialState();
@@ -31,7 +35,10 @@ const cartSlice = createSlice({
 });
 
 export const {
-  productAddedToCart, productRemovedFromCart, increment, decrement,
+  productAddedToCart,
+  productRemovedFromCart,
+  increment,
+  decrement,
 } = cartSlice.actions;
 
 export const {
@@ -40,8 +47,7 @@ export const {
   selectById: selectCartItemById,
 } = cartAdapter.getSelectors((state) => state.cart);
 
-export const selectSubtotalCost = createSelector(
-  selectCartItems,
-  (items) => items.reduce((sum, item) => sum + item.price * item.amount, 0),
+export const selectSubtotalCost = createSelector(selectCartItems, (items) =>
+  items.reduce((sum, item) => sum + item.price * item.amount, 0)
 );
 export default cartSlice.reducer;

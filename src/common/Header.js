@@ -8,10 +8,7 @@ export default function Header({ title }) {
   const navigate = useNavigate();
   return (
     <header>
-      <button
-        type="button"
-        onClick={() => navigate(-1)}
-      >
+      <button type='button' onClick={() => navigate(-1)}>
         <LeftSvg />
       </button>
       {title}

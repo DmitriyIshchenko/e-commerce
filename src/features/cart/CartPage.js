@@ -15,31 +15,29 @@ import Header from '../../common/Header';
 
 function CartItem({ productId }) {
   const dispatch = useDispatch();
-  const { amount } = useSelector((state) => selectCartItemById(state, productId));
-  const { name, images, price } = useSelector((state) => selectProductById(state, productId));
+  const { amount } = useSelector((state) =>
+    selectCartItemById(state, productId)
+  );
+  const { name, images, price } = useSelector((state) =>
+    selectProductById(state, productId)
+  );
 
   return (
     <li>
       <h2>{name}</h2>
-      <img src={images[0]} alt="" />
+      <img src={images[0]} alt='' />
       <p>{price}</p>
 
-      <button
-        type="button"
-        onClick={() => dispatch(decrement(productId))}
-      >
+      <button type='button' onClick={() => dispatch(decrement(productId))}>
         -
       </button>
       <span>{amount}</span>
-      <button
-        type="button"
-        onClick={() => dispatch(increment(productId))}
-      >
+      <button type='button' onClick={() => dispatch(increment(productId))}>
         +
       </button>
 
       <button
-        type="button"
+        type='button'
         onClick={() => dispatch(productRemovedFromCart(productId))}
       >
         delete
@@ -67,13 +65,11 @@ export default function CartPage() {
   let content;
   if (cartIds.length) {
     const renderedItems = cartIds.map((productId) => (
-      <CartItem productId={productId} />
+      <CartItem productId={productId} key={productId} />
     ));
     content = (
       <>
-        <ul>
-          {renderedItems}
-        </ul>
+        <ul>{renderedItems}</ul>
         <CartSummary />
       </>
     );
@@ -81,16 +77,14 @@ export default function CartPage() {
     content = (
       <>
         <h2>your cart is empty</h2>
-        <Link to="/">back to shop</Link>
+        <Link to='/'>back to shop</Link>
       </>
     );
   }
   return (
     <>
-      <Header title="your cart" />
-      <main>
-        {content}
-      </main>
+      <Header title='your cart' />
+      <main>{content}</main>
     </>
   );
 }

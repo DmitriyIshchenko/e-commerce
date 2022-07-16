@@ -16,20 +16,14 @@ function ProductPage() {
     return <DefaultPage />;
   }
 
-  const {
-    name,
-    description,
-    price,
-    rating,
-    images,
-  } = product;
+  const { name, description, price, rating, images } = product;
 
   return (
     <>
       <Header title={name} />
       <main>
         <section>
-          <img src={images[0]} alt="" />
+          <img src={images[0]} alt='' />
           <h2>{name}</h2>
           <StarRating rating={rating} />
           <span>{price}</span>
@@ -40,7 +34,12 @@ function ProductPage() {
           <p>{description}</p>
         </section>
 
-        <button type="button" onClick={() => dispatch(productAddedToCart(productId, price))}>add to cart</button>
+        <button
+          type='button'
+          onClick={() => dispatch(productAddedToCart(productId, price))}
+        >
+          add to cart
+        </button>
       </main>
     </>
   );

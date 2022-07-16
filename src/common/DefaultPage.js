@@ -5,7 +5,7 @@ export default function DefaultPage() {
   return (
     <main>
       <h2>page not found!</h2>
-      <Link to="/">back to shop</Link>
+      <Link to='/'>back to shop</Link>
     </main>
   );
 }

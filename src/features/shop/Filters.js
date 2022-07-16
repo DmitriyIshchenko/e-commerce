@@ -5,28 +5,23 @@ import { filtersUpdated } from './shopSlice';
 import Header from '../../common/Header';
 
 function PriceFilter(props) {
-  const {
-    newMinPrice,
-    setNewMinPrice,
-    newMaxPrice,
-    setNewMaxPrice,
-  } = props;
+  const { newMinPrice, setNewMinPrice, newMaxPrice, setNewMaxPrice } = props;
 
   return (
     <fieldset>
-      <label htmlFor="min-price">
+      <label htmlFor='min-price'>
         <input
-          id="min-price"
-          type="number"
+          id='min-price'
+          type='number'
           value={newMinPrice}
           onChange={(e) => setNewMinPrice(+e.target.value)}
         />
       </label>
 
-      <label htmlFor="max-price">
+      <label htmlFor='max-price'>
         <input
-          id="max-price"
-          type="number"
+          id='max-price'
+          type='number'
           value={newMaxPrice}
           onChange={(e) => setNewMaxPrice(+e.target.value)}
         />
@@ -38,8 +33,12 @@ function PriceFilter(props) {
 function BrandsFilter({ brands, setBrands }) {
   const onCheckboxChange = (e) => {
     const { checked: active, value: targetName } = e.target;
-    const tempBrands = brands.map((brand) => ([brand.name, 'all'].includes(targetName) ? { ...brand, active } : brand));
-    const areAllChecked = tempBrands.filter((brand) => brand !== 'all').every((brand) => brand.active);
+    const tempBrands = brands.map((brand) =>
+      [brand.name, 'all'].includes(targetName) ? { ...brand, active } : brand
+    );
+    const areAllChecked = tempBrands
+      .filter((brand) => brand !== 'all')
+      .every((brand) => brand.active);
     tempBrands[0] = { active: areAllChecked, name: 'all' };
     setBrands(tempBrands);
   };
@@ -48,7 +47,7 @@ function BrandsFilter({ brands, setBrands }) {
       <label htmlFor={item.name}>
         {item.name}
         <input
-          type="checkbox"
+          type='checkbox'
           id={item.name}
           checked={item.active}
           value={item.name}
@@ -60,9 +59,7 @@ function BrandsFilter({ brands, setBrands }) {
 
   return (
     <fieldset>
-      <ul>
-        {brandsCheckboxes}
-      </ul>
+      <ul>{brandsCheckboxes}</ul>
     </fieldset>
   );
 }
@@ -75,15 +72,19 @@ export default function Filters() {
 
   const [newMinPrice, setNewMinPrice] = useState(minPrice);
   const [newMaxPrice, setNewMaxPrice] = useState(maxPrice);
-  const [brands, setBrands] = useState(useSelector((state) => state.shop.filters.brands));
+  const [brands, setBrands] = useState(
+    useSelector((state) => state.shop.filters.brands)
+  );
 
   const onApplyClicked = () => {
-    dispatch(filtersUpdated({ minPrice: newMinPrice, maxPrice: newMaxPrice, brands }));
+    dispatch(
+      filtersUpdated({ minPrice: newMinPrice, maxPrice: newMaxPrice, brands })
+    );
   };
 
   return (
     <>
-      <Header title="filters" />
+      <Header title='filters' />
       <form>
         <PriceFilter
           newMinPrice={newMinPrice}
@@ -91,14 +92,8 @@ export default function Filters() {
           newMaxPrice={newMaxPrice}
           setNewMaxPrice={setNewMaxPrice}
         />
-        <BrandsFilter
-          brands={brands}
-          setBrands={setBrands}
-        />
-        <button
-          type="button"
-          onClick={onApplyClicked}
-        >
+        <BrandsFilter brands={brands} setBrands={setBrands} />
+        <button type='button' onClick={onApplyClicked}>
           Apply
         </button>
       </form>
@@ -118,7 +113,7 @@ BrandsFilter.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       active: PropTypes.bool.isRequired,
-    }),
+    })
   ).isRequired,
   setBrands: PropTypes.func.isRequired,
 };

@@ -17,7 +17,7 @@ async function start() {
       <Router>
         <App />
       </Router>
-    </Provider>,
+    </Provider>
   );
 }
 

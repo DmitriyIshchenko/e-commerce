@@ -28,16 +28,17 @@ export default function Sorting() {
     const { field, order } = options[+e.target.value];
     dispatch(sortByUpdated({ field, order }));
   };
+
   const renderedRadios = options.map((option, index) => {
     const { field, order, description } = option;
     const isChecked = field === sortBy.field && order === sortBy.order;
     return (
-      <label htmlFor={`option${index}`}>
+      <label htmlFor={`option${index}`} key={`option${index}`}>
         {description}
         <input
           id={`option${index}`}
-          name="sort"
-          type="radio"
+          name='sort'
+          type='radio'
           onChange={handleChange}
           checked={isChecked}
           value={index}
@@ -48,10 +49,8 @@ export default function Sorting() {
 
   return (
     <>
-      <Header title="sort by" />
-      <div>
-        {renderedRadios}
-      </div>
+      <Header title='sort by' />
+      <div>{renderedRadios}</div>
     </>
   );
 }

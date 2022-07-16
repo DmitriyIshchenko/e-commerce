@@ -27,11 +27,7 @@ function ShopPage() {
       <ProductCard key={productId} productId={productId} />
     ));
 
-    content = (
-      <ul>
-        {renderedProducts}
-      </ul>
-    );
+    content = <ul>{renderedProducts}</ul>;
   } else if (status === 'rejected') {
     content = <div>{error}</div>;
   }
@@ -39,12 +35,10 @@ function ShopPage() {
   return (
     <>
       <header>
-        <Link to="/sort">sort</Link>
-        <Link to="/filter">filter</Link>
+        <Link to='/sort'>sort</Link>
+        <Link to='/filter'>filter</Link>
       </header>
-      <main>
-        {content}
-      </main>
+      <main>{content}</main>
     </>
   );
 }
