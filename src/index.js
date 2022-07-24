@@ -5,7 +5,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import store from './app/store';
 import App from './App';
 import { worker } from './api/server';
-import './index.css';
 
 async function start() {
   await worker.start({ onUnhandledRequest: 'bypass' });

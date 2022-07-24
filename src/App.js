@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import './App.css';
+import './styles/main.scss';
 
 import ShopPage from './features/shop/ShopPage';
 import ProductPage from './features/shop/ProductPage';
@@ -10,7 +10,7 @@ import CartPage from './features/cart/CartPage';
 
 function App() {
   return (
-    <div className='App'>
+    <div className='App container'>
       <Routes>
         <Route path='/' element={<ShopPage />} />
         <Route path='/product/:productId' element={<ProductPage />} />
