@@ -1,0 +1,28 @@
+@use '../styles/colors';
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+
+  padding: 1.6rem 2.4rem;
+  margin: 0 -2.4rem;
+  border-bottom: 1px solid colors.$neutral-light;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+
+  text-transform: capitalize;
+
+  color: colors.$neutral-dark;
+}
+
+.btnBack {
+  display: flex;
+  background: none;
+  border: none;
+
+  svg {
+    margin-left: -0.8rem;
+  }
+}
