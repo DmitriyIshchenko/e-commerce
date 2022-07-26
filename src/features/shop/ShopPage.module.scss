@@ -1,0 +1,33 @@
+@use '../../styles/colors';
+@use '../../styles/typography' as text;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 1.6rem;
+
+  padding: 1.6rem;
+  margin: 0 -1.6rem;
+  border-bottom: 1px solid colors.$neutral-light;
+
+  h1 {
+    margin-right: auto;
+    @include text.heading(3);
+  }
+}
+
+.amount {
+  display: inline-block;
+  padding-block: 0.8rem;
+  @include text.body-text(sm, bold);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 1.2rem;
+
+  list-style: none;
+}
