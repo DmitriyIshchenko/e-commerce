@@ -1,20 +1,16 @@
 @use '../styles/colors';
+@use '../styles/typography' as text;
 
 .header {
   display: flex;
   align-items: center;
   gap: 1.6rem;
 
-  padding: 1.6rem 2.4rem;
-  margin: 0 -2.4rem;
+  padding: 1.6rem;
+  margin: 0 -1.6rem;
   border-bottom: 1px solid colors.$neutral-light;
 
-  font-size: 1.6rem;
-  font-weight: 700;
-
-  text-transform: capitalize;
-
-  color: colors.$neutral-dark;
+  @include text.heading(3);
 }
 
 .btnBack {
