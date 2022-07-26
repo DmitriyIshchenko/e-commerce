@@ -1,0 +1,17 @@
+@use '../../styles/colors';
+@use '../../styles/typography' as text;
+
+.sort {
+  display: flex;
+  flex-direction: column;
+  margin-inline: -2.4rem;
+
+  label {
+    padding: 1.6rem 2.4rem;
+    @include text.body-text(sm, bold, colors.$neutral-dark);
+  }
+
+  .active {
+    background-color: colors.$neutral-light;
+  }
+}

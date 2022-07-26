@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { sortByUpdated } from './shopSlice';
 import Header from '../../common/Header';
 
+import styles from './Sorting.module.scss';
+
 export default function Sorting() {
   const dispatch = useDispatch();
   const sortBy = useSelector((state) => state.shop.sortBy);
@@ -33,7 +35,11 @@ export default function Sorting() {
     const { field, order, description } = option;
     const isChecked = field === sortBy.field && order === sortBy.order;
     return (
-      <label htmlFor={`option${index}`} key={`option${index}`}>
+      <label
+        className={isChecked ? styles.active : ''}
+        htmlFor={`option${index}`}
+        key={`option${index}`}
+      >
         {description}
         <input
           id={`option${index}`}
@@ -42,6 +48,7 @@ export default function Sorting() {
           onChange={handleChange}
           checked={isChecked}
           value={index}
+          className='sr-only'
         />
       </label>
     );
@@ -50,7 +57,7 @@ export default function Sorting() {
   return (
     <>
       <Header title='sort by' />
-      <div>{renderedRadios}</div>
+      <div className={styles.sort}>{renderedRadios}</div>
     </>
   );
 }
