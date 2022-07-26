@@ -21,8 +21,10 @@ function ProductCard({ productId }) {
         <img className={styles.image} src={images[0]} alt='' />
 
         <div className={styles.info}>
-          <p className={styles.name}>{name}</p>
-          <StarRating rating={rating} />
+          <header>
+            <p className={styles.name}>{name}</p>
+            <StarRating rating={rating} />
+          </header>
           <p className={styles.price}>{formattedPrice}</p>
         </div>
       </Link>

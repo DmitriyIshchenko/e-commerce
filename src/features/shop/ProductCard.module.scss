@@ -1,4 +1,6 @@
 @use '../../styles/colors';
+@use '../../styles/typography' as text;
+
 .card {
   padding: 1.6rem;
   text-decoration: none;
@@ -18,30 +20,28 @@
 
   a:link,
   a:visited {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     text-decoration: none;
   }
 }
 
 .info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.6rem;
+
   .name {
-    line-height: 1.5;
-
     margin-bottom: 0.4rem;
-
-    font-size: 1.2rem;
-    font-weight: 700;
-
-    letter-spacing: 0.5px;
-
-    text-decoration: none;
-    color: colors.$neutral-dark;
+    @include text.heading(5);
   }
-
   .price {
-    margin-top: 1.6rem;
-
+    font-weight: text.weight(bold);
     font-size: 1.2rem;
-    font-weight: 700;
+    
     color: colors.$primary-blue;
   }
 }
