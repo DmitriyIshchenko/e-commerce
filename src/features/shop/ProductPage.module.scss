@@ -1,0 +1,46 @@
+@use '../../styles/colors';
+@use '../../styles/typography' as text;
+@use '../../styles/buttons';
+
+.imgBox {
+  margin-inline: -1.6rem;
+  img {
+    width: 100%;
+  }
+}
+
+.info {
+  margin-top: 1.2rem;
+  margin-bottom: 2.4rem;
+
+  .name {
+    margin-bottom: 0.4rem;
+
+    @include text.heading(2);
+  }
+
+  .price {
+    margin-top: 1.2rem;
+
+    @include text.heading(2);
+    color: colors.$primary-blue;
+  }
+}
+
+.meta {
+  h2 {
+    @include text.heading(4);
+  }
+  p {
+    margin-bottom: 2.4rem;
+
+    @include text.body-text(md, regular);
+  }
+}
+
+.btn {
+  margin-bottom: 2.4rem;
+
+  @include text.body-text(md, bold);
+  @include buttons.btn;
+}
