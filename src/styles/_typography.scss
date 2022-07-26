@@ -1,0 +1,60 @@
+@use './colors';
+
+$font-weights: (
+  'regular': 400,
+  'medium': 500,
+  'bold': 700,
+);
+
+@function weight($weight-name) {
+  @return map-get($map: $font-weights, $key: $weight-name);
+}
+
+@mixin heading($n) {
+  $base: 1;
+  $scale: 1.2;
+  $sizes: ();
+
+  @for $i from 1 through 6 {
+    $sizes: append($sizes, $base + rem);
+    $base: $base * $scale;
+  }
+
+  line-height: 1.5;
+  font-weight: weight(bold);
+  letter-spacing: 0.5px;
+
+  text-transform: capitalize;
+
+  color: colors.$neutral-dark;
+  font-size: nth($sizes, -$n);
+}
+
+@mixin body-text($size-name, $weight-name, $color-name: colors.$neutral-grey) {
+  $sizes: (
+    'sm': 1.2rem,
+    'md': 1.4rem,
+    'lg': 1.6rem,
+  );
+
+  line-height: 1.8;
+  font-size: map-get($map: $sizes, $key: $size-name);
+  font-weight: weight($weight-name);
+
+  letter-spacing: 0.5px;
+  color: $color-name;
+}
+
+@mixin caption($size-name, $weight-name) {
+  $sizes: (
+    'sm': 1rem,
+    'md': 1.2rem,
+  );
+  font-size: map-get($map: $sizes, $key: $size-name);
+  font-weight: weight($weight-name);
+
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+
+  color: colors.$neutral-grey;
+}
