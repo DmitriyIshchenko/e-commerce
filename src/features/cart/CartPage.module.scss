@@ -1,0 +1,135 @@
+@use '../../styles/colors';
+@use '../../styles/typography' as text;
+@use '../../styles/buttons';
+
+.cart {
+  display: grid;
+  row-gap: 1.6rem;
+
+  margin-top: 1.6rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  list-style: none;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 7.2rem 1.2rem repeat(4, 1fr);
+  align-items: center;
+
+  padding: 1.6rem;
+
+  border: 1px solid colors.$neutral-light;
+  border-radius: 5px;
+
+  img {
+    grid-column: 1;
+    grid-row: 1/3;
+
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+
+    border-radius: 5px;
+  }
+
+  .name {
+    grid-column: 3 / span 4;
+    align-self: start;
+
+    @include text.heading(4);
+  }
+
+  .price {
+    grid-column: 3;
+    grid-row: 2;
+    align-self: end;
+
+    @include text.body-text(md, bold, colors.$primary-blue);
+  }
+
+  .controls {
+    grid-column: 5/8;
+    align-self: end;
+
+    display: flex;
+    justify-content: space-between;
+
+    @mixin control-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: none;
+      border: 1px solid colors.$neutral-light;
+      padding-inline: 0.8rem;
+    }
+
+    .decrement {
+      @include control-btn;
+    }
+
+    .increment {
+      @include control-btn;
+    }
+
+    .amount {
+      flex: 1;
+      text-align: center;
+      background: colors.$neutral-light;
+      @include text.body-text(sm, regular);
+    }
+  }
+
+  .remove {
+    grid-column: -1;
+    grid-row: 1;
+
+    align-self: start;
+
+    background: none;
+    border: none;
+  }
+}
+
+.summary {
+  padding-inline: 1.6rem;
+
+  border: 1px solid colors.$neutral-light;
+  border-radius: 5px;
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+
+    padding-block: 1.2rem;
+
+    @include text.body-text(sm, regular);
+
+    .cost {
+      color: colors.$neutral-dark;
+    }
+  }
+
+  .total {
+    @extend .row;
+
+    border-top: 1px dashed colors.$neutral-light;
+
+    @include text.body-text(sm, bold, colors.$neutral-dark);
+
+    .cost {
+      color: colors.$primary-blue;
+    }
+  }
+}
+
+.checkOutBtn {
+  @include buttons.btn;
+  @include text.body-text(md, bold, #fff);
+}

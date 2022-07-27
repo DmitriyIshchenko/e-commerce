@@ -12,6 +12,12 @@ import {
 } from './cartSlice';
 import { selectProductById } from '../shop/shopSlice';
 import Header from '../../common/Header';
+import { ReactComponent as Trash } from '../../assets/system icon/24px/Trash.svg';
+import { ReactComponent as Minus } from '../../assets/system icon/16px/Minus.svg';
+import { ReactComponent as Plus } from '../../assets/system icon/16px/Plus.svg';
+import { formatCurrency } from '../../utils/helpers';
+
+import styles from './CartPage.module.scss';
 
 function CartItem({ productId }) {
   const dispatch = useDispatch();
@@ -21,26 +27,36 @@ function CartItem({ productId }) {
   const { name, images, price } = useSelector((state) =>
     selectProductById(state, productId)
   );
-
   return (
-    <li>
-      <h2>{name}</h2>
+    <li className={styles.item}>
+      <p className={styles.name}>{name}</p>
       <img src={images[0]} alt='' />
-      <p>{price}</p>
+      <p className={styles.price}>{formatCurrency(price)}</p>
 
-      <button type='button' onClick={() => dispatch(decrement(productId))}>
-        -
-      </button>
-      <span>{amount}</span>
-      <button type='button' onClick={() => dispatch(increment(productId))}>
-        +
-      </button>
+      <div className={styles.controls}>
+        <button
+          className={styles.decrement}
+          type='button'
+          onClick={() => dispatch(decrement(productId))}
+        >
+          <Minus />
+        </button>
+        <span className={styles.amount}>{amount}</span>
+        <button
+          className={styles.increment}
+          type='button'
+          onClick={() => dispatch(increment(productId))}
+        >
+          <Plus />
+        </button>
+      </div>
 
       <button
+        className={styles.remove}
         type='button'
         onClick={() => dispatch(productRemovedFromCart(productId))}
       >
-        delete
+        <Trash />
       </button>
     </li>
   );
@@ -51,11 +67,22 @@ function CartSummary() {
   const shippingCost = 40;
   const totalCost = subtotalCost + shippingCost;
   return (
-    <div>
-      <p>{subtotalCost}</p>
-      <p>{shippingCost}</p>
-      <p>{totalCost}</p>
-    </div>
+    <section className={styles.summary}>
+      <div className={styles.row}>
+        <p>Items</p>
+        <p className={styles.cost}>{formatCurrency(subtotalCost)}</p>
+      </div>
+
+      <div className={styles.row}>
+        <p>Shipping</p>
+        <p className={styles.cost}>{formatCurrency(shippingCost)}</p>
+      </div>
+
+      <div className={styles.total}>
+        <p>Total Price</p>
+        <p className={styles.cost}>{formatCurrency(totalCost)}</p>
+      </div>
+    </section>
   );
 }
 
@@ -69,8 +96,9 @@ export default function CartPage() {
     ));
     content = (
       <>
-        <ul>{renderedItems}</ul>
+        <ul className={styles.list}>{renderedItems}</ul>
         <CartSummary />
+        <button className={styles.checkOutBtn}>Check out</button>
       </>
     );
   } else {
@@ -84,7 +112,7 @@ export default function CartPage() {
   return (
     <>
       <Header title='your cart' />
-      <main>{content}</main>
+      <main className={styles.cart}>{content}</main>
     </>
   );
 }
