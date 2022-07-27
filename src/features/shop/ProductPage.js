@@ -6,6 +6,7 @@ import StarRating from '../../common/StarRating';
 import { productAddedToCart, selectCartItemById } from '../cart/cartSlice';
 import DefaultPage from '../../common/DefaultPage';
 import Header from '../../common/Header';
+import { formatCurrency } from '../../utils/helpers';
 import PropTypes from 'prop-types';
 
 import styles from './ProductPage.module.scss';
@@ -37,10 +38,6 @@ export default function ProductPage() {
   }
 
   const { name, description, price, rating, images } = product;
-  const formattedPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(+price);
 
   return (
     <>
@@ -54,7 +51,7 @@ export default function ProductPage() {
           <div className={styles.info}>
             <p className={styles.name}>{name}</p>
             <StarRating rating={rating} size={16} />
-            <p className={styles.price}>{formattedPrice}</p>
+            <p className={styles.price}>{formatCurrency(price)}</p>
           </div>
         </section>
 
@@ -71,5 +68,5 @@ export default function ProductPage() {
 
 AddToCartButton.propTypes = {
   productId: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
 };

@@ -4,16 +4,13 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { selectProductById } from './shopSlice';
 import StarRating from '../../common/StarRating';
+import { formatCurrency } from '../../utils/helpers';
 
 import styles from './ProductCard.module.scss';
 
 function ProductCard({ productId }) {
   const product = useSelector((state) => selectProductById(state, productId));
   const { name, price, rating, images } = product;
-  const formattedPrice = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(+price);
 
   return (
     <li className={styles.card}>
@@ -25,7 +22,7 @@ function ProductCard({ productId }) {
             <p className={styles.name}>{name}</p>
             <StarRating rating={rating} />
           </header>
-          <p className={styles.price}>{formattedPrice}</p>
+          <p className={styles.price}>{formatCurrency(price)}</p>
         </div>
       </Link>
     </li>
