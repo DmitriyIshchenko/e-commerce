@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { fetchProducts, selectFilteredProductIds } from './shopSlice';
 import Spinner from '../../common/Spinner';
 import ProductCard from './ProductCard';
+import Navbar from '../../common/Navbar';
+
 import { ReactComponent as Filter } from '../../assets/system icon/24px/Filter.svg';
 import { ReactComponent as Sort } from '../../assets/system icon/24px/Sort.svg';
 
@@ -36,7 +38,7 @@ function ShopPage() {
     content = (
       <>
         <span className={styles.amount}>{amountStr}</span>
-        <ul className={styles.list}>{renderedProducts}</ul>;
+        <ul className={styles.list}>{renderedProducts}</ul>
       </>
     );
   } else if (status === 'rejected') {
@@ -55,6 +57,7 @@ function ShopPage() {
         </Link>
       </header>
       <main className={styles.shop}>{content}</main>
+      <Navbar />
     </>
   );
 }

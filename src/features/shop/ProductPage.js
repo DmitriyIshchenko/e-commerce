@@ -6,6 +6,7 @@ import StarRating from '../../common/StarRating';
 import { productAddedToCart, selectCartItemById } from '../cart/cartSlice';
 import DefaultPage from '../../common/DefaultPage';
 import Header from '../../common/Header';
+import Navbar from '../../common/Navbar';
 import { formatCurrency } from '../../utils/helpers';
 import PropTypes from 'prop-types';
 
@@ -62,6 +63,7 @@ export default function ProductPage() {
 
         <AddToCartButton price={price} productId={productId} />
       </main>
+      <Navbar />
     </>
   );
 }

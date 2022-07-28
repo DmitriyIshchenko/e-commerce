@@ -12,6 +12,7 @@ import {
 } from './cartSlice';
 import { selectProductById } from '../shop/shopSlice';
 import Header from '../../common/Header';
+import Navbar from '../../common/Navbar';
 import { ReactComponent as Trash } from '../../assets/system icon/24px/Trash.svg';
 import { ReactComponent as Minus } from '../../assets/system icon/16px/Minus.svg';
 import { ReactComponent as Plus } from '../../assets/system icon/16px/Plus.svg';
@@ -113,6 +114,7 @@ export default function CartPage() {
     <>
       <Header title='your cart' />
       <main className={styles.cart}>{content}</main>
+      <Navbar />
     </>
   );
 }

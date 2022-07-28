@@ -2,6 +2,11 @@
 @use '../../styles/typography' as text;
 @use '../../styles/buttons';
 
+.page {
+  padding-bottom: 1.6rem;
+  margin-bottom: 6.2rem;
+}
+
 .imgBox {
   margin-inline: -1.6rem;
   img {
@@ -39,8 +44,6 @@
 }
 
 .btn {
-  margin-bottom: 2.4rem;
-
   @include text.body-text(md, bold);
   @include buttons.btn;
 }

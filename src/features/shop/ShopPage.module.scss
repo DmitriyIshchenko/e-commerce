@@ -1,6 +1,11 @@
 @use '../../styles/colors';
 @use '../../styles/typography' as text;
 
+.shop {
+  padding-bottom: 1.6rem;
+  margin-bottom: 6.2rem;
+}
+
 .header {
   display: flex;
   align-items: center;
