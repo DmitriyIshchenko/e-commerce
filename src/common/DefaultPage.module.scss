@@ -1,0 +1,25 @@
+@use '../styles/typography' as text;
+@use '../styles/buttons';
+
+.default {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.6rem;
+
+  height: calc(100vh - 6.2rem * 2);
+
+  text-align: center;
+  .title {
+    @include text.heading(1);
+  }
+
+  .back:link,
+  .back:visited {
+    display: block;
+    @include buttons.btn;
+
+    @include text.body-text(md, bold, #fff);
+    text-decoration: none;
+  }
+}

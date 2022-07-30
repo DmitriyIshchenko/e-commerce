@@ -5,6 +5,7 @@ import { fetchProducts, selectFilteredProductIds } from './shopSlice';
 import Spinner from '../../common/Spinner';
 import ProductCard from './ProductCard';
 import Navbar from '../../common/Navbar';
+import DefaultPage from '../../common/DefaultPage';
 
 import { ReactComponent as Filter } from '../../assets/system icon/24px/Filter.svg';
 import { ReactComponent as Sort } from '../../assets/system icon/24px/Sort.svg';
@@ -42,7 +43,8 @@ function ShopPage() {
       </>
     );
   } else if (status === 'rejected') {
-    content = <div>{error}</div>;
+    console.log(error);
+    return <DefaultPage text='Error!' />;
   }
 
   return (

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import {
   decrement,
   increment,
@@ -13,6 +12,7 @@ import {
 import { selectProductById } from '../shop/shopSlice';
 import Header from '../../common/Header';
 import Navbar from '../../common/Navbar';
+import DefaultPage from '../../common/DefaultPage';
 import { ReactComponent as Trash } from '../../assets/system icon/24px/Trash.svg';
 import { ReactComponent as Minus } from '../../assets/system icon/16px/Minus.svg';
 import { ReactComponent as Plus } from '../../assets/system icon/16px/Plus.svg';
@@ -103,12 +103,7 @@ export default function CartPage() {
       </>
     );
   } else {
-    content = (
-      <>
-        <h2>your cart is empty</h2>
-        <Link to='/'>back to shop</Link>
-      </>
-    );
+    return <DefaultPage title='your cart' text='your cart is empty' />;
   }
   return (
     <>
