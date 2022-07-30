@@ -4,28 +4,40 @@ import PropTypes from 'prop-types';
 import { filtersUpdated } from './shopSlice';
 import Header from '../../common/Header';
 
+import styles from './Filters.module.scss';
+import classNames from 'classnames';
+
 function PriceFilter(props) {
   const { newMinPrice, setNewMinPrice, newMaxPrice, setNewMaxPrice } = props;
 
   return (
-    <fieldset>
-      <label htmlFor='min-price'>
-        <input
-          id='min-price'
-          type='number'
-          value={newMinPrice}
-          onChange={(e) => setNewMinPrice(+e.target.value)}
-        />
-      </label>
+    <fieldset className={styles.fieldset}>
+      <p className={styles.title}>price range</p>
+      <div className={styles.byPrice}>
+        <label htmlFor='min-price'>
+          <span className={styles.currency}>$</span>
+          <input
+            className={styles.minmax}
+            id='min-price'
+            type='text'
+            pattern='[0-9]*'
+            value={newMinPrice}
+            onChange={(e) => setNewMinPrice(+e.target.value)}
+          />
+        </label>
 
-      <label htmlFor='max-price'>
-        <input
-          id='max-price'
-          type='number'
-          value={newMaxPrice}
-          onChange={(e) => setNewMaxPrice(+e.target.value)}
-        />
-      </label>
+        <label htmlFor='max-price'>
+          <span className={styles.currency}>$</span>
+          <input
+            className={styles.minmax}
+            id='max-price'
+            type='text'
+            pattern='[0-9]*'
+            value={newMaxPrice}
+            onChange={(e) => setNewMaxPrice(+e.target.value)}
+          />
+        </label>
+      </div>
     </fieldset>
   );
 }
@@ -42,11 +54,18 @@ function BrandsFilter({ brands, setBrands }) {
     tempBrands[0] = { active: areAllChecked, name: 'all' };
     setBrands(tempBrands);
   };
-  const brandsCheckboxes = brands.map((item) => (
+
+  const brandsListItems = brands.map((item) => (
     <li key={item.name}>
-      <label htmlFor={item.name}>
-        {item.name}
+      <label className={styles.label} htmlFor={item.name}>
+        <span className={styles.brandName}>{item.name}</span>
+        <span
+          className={classNames(styles.checkbox, {
+            [styles.checked]: item.active,
+          })}
+        ></span>
         <input
+          className='sr-only'
           type='checkbox'
           id={item.name}
           checked={item.active}
@@ -58,8 +77,9 @@ function BrandsFilter({ brands, setBrands }) {
   ));
 
   return (
-    <fieldset>
-      <ul>{brandsCheckboxes}</ul>
+    <fieldset className={styles.fieldset}>
+      <p className={styles.title}>Brands</p>
+      <ul className={styles.byBrand}>{brandsListItems}</ul>
     </fieldset>
   );
 }
@@ -83,9 +103,9 @@ export default function Filters() {
   };
 
   return (
-    <>
+    <aside>
       <Header title='filters' />
-      <form>
+      <form className={styles.form}>
         <PriceFilter
           newMinPrice={newMinPrice}
           setNewMinPrice={setNewMinPrice}
@@ -93,11 +113,15 @@ export default function Filters() {
           setNewMaxPrice={setNewMaxPrice}
         />
         <BrandsFilter brands={brands} setBrands={setBrands} />
-        <button type='button' onClick={onApplyClicked}>
+        <button
+          className={styles.applyBtn}
+          type='button'
+          onClick={onApplyClicked}
+        >
           Apply
         </button>
       </form>
-    </>
+    </aside>
   );
 }
 

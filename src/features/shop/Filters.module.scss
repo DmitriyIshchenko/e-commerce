@@ -1,0 +1,106 @@
+@use '../../styles/colors';
+@use '../../styles/typography' as text;
+@use '../../styles/buttons';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+
+  margin-top: 1.6rem;
+}
+
+.fieldset {
+  border: none;
+
+  .title {
+    @include text.heading(5);
+    margin-bottom: 1.2rem;
+  }
+}
+
+.byPrice {
+  display: flex;
+  gap: 1.6rem;
+
+  label {
+    position: relative;
+  }
+
+  .minmax {
+    width: 100%;
+    padding: 1.2rem;
+    padding-left: 2rem;
+
+    border: 1px solid colors.$neutral-light;
+    border-radius: 5px;
+
+    @include text.body-text(sm, bold);
+    font-family: inherit;
+  }
+
+  .currency {
+    position: absolute;
+    top: 50%;
+    left: 1.2rem;
+    transform: translateY(-50%);
+
+    @include text.body-text(sm, bold);
+  }
+}
+
+.byBrand {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  list-style: none;
+  @include text.body-text(sm, regular);
+  text-transform: capitalize;
+
+  .label {
+    position: relative;
+
+    .checkbox {
+      content: '';
+      position: absolute;
+      display: block;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+
+      width: 2.4rem;
+      height: 2.4rem;
+      border: 1px solid colors.$neutral-light;
+      border-radius: 5px;
+    }
+    .checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 30%;
+
+      width: 0.4rem;
+      aspect-ratio: 0.5;
+
+      border: solid colors.$primary-blue;
+      border-width: 0 2px 2px 0;
+
+      transform: rotate(45deg) translate(-50%, -50%);
+    }
+
+    .brandName {
+      padding-left: 3.2rem;
+    }
+  }
+}
+
+.applyBtn {
+  position: fixed;
+  bottom: 1.6rem;
+  left: 1.6rem;
+
+  @include buttons.btn;
+  width: calc(100% - 3.2rem);
+  @include text.body-text(sm, bold, #fff);
+}
